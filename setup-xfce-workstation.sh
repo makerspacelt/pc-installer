@@ -277,11 +277,9 @@ EOF
   chmod 600 /etc/NetworkManager/system-connections/makerspace.lt.nmconnection
 
   # Add auto update
-  if [ ! -f /etc/rc.local ]; then
-    touch /etc/rc.local
-    chmod +x /etc/rc.local
-    echo '#!/bin/sh' > /etc/rc.local
-  fi
+  touch /etc/rc.local
+  chmod +x /etc/rc.local
+  echo '#!/bin/sh' > /etc/rc.local
 
   cmd_setup='/root/setup/setup-xfce-workstation.sh | logger --skip-empty --stderr --tag pc-installer-setup'
   sed -i '/setup-xfce-workstation/d; /^exit 0/d' /etc/rc.local
