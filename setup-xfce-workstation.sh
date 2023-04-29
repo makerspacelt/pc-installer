@@ -40,6 +40,7 @@ do_self_update() {
     msg "Self update successful. Restarting."
     rm -fr "$script_dir"
     mv "${script_dir}-new" "$script_dir"
+    cd .
     NO_UPDATE=1 exec "$script_path"
   else
     err "Update failed."
