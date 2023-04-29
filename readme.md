@@ -44,3 +44,10 @@ On each boot, the /root/setup/setup-xfce-workstation.sh script is run via
 /etc/rc.local. This script is self updating from git. You can change the branch
 from which it updates by creating a /root/setup/branch file with the branch
 name. Default is no file and the `master` branch.
+
+Additionally this script executes:
+* `hosts/all/setup.sh` with current dir set to `hosts/all`
+* `hosts/<hostname>/setup.sh` with current dir set to `hosts/<hostname>`
+  (`<hostname>` is the fully qualified hostname from DHCP, e.g. pc1.lan)....
+
+Note that these autoupdate and autosetup mechanisms are not designed to be secure.
