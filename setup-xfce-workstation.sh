@@ -321,7 +321,7 @@ do_setup_printing() {
 
 current_dir="$(pwd)"
 script_name=$(basename "$0")
-script_dir=$(dirname "$0")
+script_dir=$(readlink -f "$(dirname "$0")")
 script_path="$script_dir/$script_name"
 
 NO_UPDATE=${NO_UPDATE:-}
