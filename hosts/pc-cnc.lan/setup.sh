@@ -17,5 +17,5 @@
         cd pcb-mill/workstation
     fi
 
-    docker-compose up -d
+    DISPLAY=:0 sudo -u user docker-compose up -d
 )
