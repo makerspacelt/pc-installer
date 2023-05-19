@@ -9,7 +9,7 @@
     if [ -d "pcb-mill" ]; then
         dbg "Updating PCB mill from git"
         cd pcb-mill
-        sudo -u user git pull
+        sudo -u user git pull origin master
         cd workstation
     else
         dbg "Cloning PCB mill from git"
