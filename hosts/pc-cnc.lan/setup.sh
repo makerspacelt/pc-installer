@@ -9,7 +9,7 @@
     if [ -d "pcb-mill" ]; then
         dbg "Updating PCB mill from git"
         cd pcb-mill
-        sudo -u user git pull origin master
+        sudo -u user git pull origin master --autostash || true
         cd workstation
     else
         dbg "Cloning PCB mill from git"
@@ -17,5 +17,5 @@
         cd pcb-mill/workstation
     fi
 
-    DISPLAY=:0 sudo -u user docker-compose up -d
+    DISPLAY=:0 docker-compose up -d
 )
