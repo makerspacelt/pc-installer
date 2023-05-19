@@ -1,8 +1,6 @@
 #!/bin/sh
 
-dbg() { printf '\e[37m\e[37m%s\e[m\n' "$*"; }
-msg() { printf '\e[37m\e[32m%s\e[m\n' "$*"; }
-err() { printf '\e[37m\e[31m%s\e[m\n' "$*"; }
+. "$(dirname "$0")/_lib"
 
 if [ "$(id -u)" != "0" ]; then
     usage "This script must be run as root"

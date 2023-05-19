@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-msg() { printf '\e[37m\e[32m%s\e[m\n' "$*"; }
+. "$(dirname "$0")/../../_lib"
 
 (
     msg "Setting up PCB mill"
