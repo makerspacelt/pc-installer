@@ -126,6 +126,7 @@ do_packages_base() {
     ntfs-3g \
     openssh-client \
     openssh-server \
+    python-is-python3 \
     usbutils \
     sudo \
     vim \
