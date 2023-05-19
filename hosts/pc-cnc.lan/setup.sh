@@ -1,14 +1,16 @@
 #!/bin/sh -e
 
+msg() { printf '\e[37m\e[32m%s\e[m\n' "$*"; }
+
 (
-    echo "Setting up PCB mill"
+    msg "Setting up PCB mill"
     cd /home/user
 
     if [ -d "pcb-mill" ]; then
-        msg "Updating PCB mill from git"
+        dbg "Updating PCB mill from git"
         sudo -u user git pull
     else
-        msg "Cloning PCB mill from git"
+        dbg "Cloning PCB mill from git"
         sudo -u user git clone https://github.com/makerspacelt/pcb-mill.git pcb-mill
     fi
 
