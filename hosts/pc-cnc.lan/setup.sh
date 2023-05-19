@@ -8,12 +8,14 @@
 
     if [ -d "pcb-mill" ]; then
         dbg "Updating PCB mill from git"
+        cd pcb-mill
         sudo -u user git pull
+        cd workstation
     else
         dbg "Cloning PCB mill from git"
         sudo -u user git clone https://github.com/makerspacelt/pcb-mill.git pcb-mill
+        cd pcb-mill/workstation
     fi
 
-    cd pcb-mill/workstation
     docker-compose up -d
 )
