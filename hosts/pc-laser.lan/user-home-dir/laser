@@ -1,0 +1,15 @@
+#!/bin/sh -ex
+
+if pgrep -af 'ssh laser /home/machinekit/bin/laser'; then
+	echo looks like laser ui is already running. bye
+	exit 0
+fi
+
+echo ...checking if beaglebone is alive
+
+while ! ssh laser true; do
+	sleep 1
+done
+
+echo ...starting machinekit ui using X forward
+exec ssh laser /home/machinekit/bin/laser

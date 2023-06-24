@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=laser
+Exec=/home/user/laser
+Icon=exfalso
+Terminal=false
+StartupNotify=false
