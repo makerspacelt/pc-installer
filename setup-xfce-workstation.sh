@@ -83,7 +83,7 @@ EOF
     echo 'LABEL=rootfs / ext4 defaults,discard,noatime 1 1' > /etc/fstab
     # fstab (nas)
     mkdir -p /media/nas
-    echo '//nas.lan/share /media/nas cifs uid=1000,gid=1000,user=user,pass=user,vers=3.0' >> /etc/fstab
+    echo '//nas.lan/share /media/nas cifs users,uid=1000,gid=1000,user=user,pass=user,vers=3.0' >> /etc/fstab
 
     # Set timezone
     ln -sf ../usr/share/zoneinfo/Europe/Vilnius /etc/localtime
