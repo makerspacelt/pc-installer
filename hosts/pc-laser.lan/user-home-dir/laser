@@ -12,4 +12,6 @@ while ! ssh laser true; do
 done
 
 echo ...starting machinekit ui using X forward
+sleep 5
 exec ssh laser /home/machinekit/bin/laser
+
