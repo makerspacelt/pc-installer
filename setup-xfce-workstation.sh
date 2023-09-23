@@ -254,6 +254,12 @@ do_improve_life() {
   # Autologin
   sed -i 's/^#autologin-user=.*/autologin-user=user/' /etc/lightdm/lightdm.conf
 
+  # Force systemd+networkmanager to wait for internet
+  cat <<EOF > /etc/systemd/system/NetworkManager-wait-online.service.d/override.conf
+[Service]
+ExecStart=/usr/bin/nm-online -q
+EOF
+
   # makerspace.lt wifi
   cat <<EOF > /etc/NetworkManager/system-connections/makerspace.lt.nmconnection
 [connection]
