@@ -35,13 +35,13 @@ do_self_update() {
   fi
   rm -fr "${script_dir}-new"
   if git clone -b "$branch" "$REPO_URL" "${script_dir}-new"; then
-    msg "Self update successful. Restarting."
+    msg "Self update successful from $REPO_URL branch $branch. Restarting."
     rm -fr "$script_dir"
     mv "${script_dir}-new" "$script_dir"
+    cd .
     if [ "$branch" != "master" ]; then
       echo "$branch" > "$script_dir/branch"
     fi
-    cd .
     NO_UPDATE=1 exec "$script_path"
   else
     err "Update failed."
