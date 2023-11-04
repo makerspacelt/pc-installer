@@ -38,6 +38,9 @@ do_self_update() {
     msg "Self update successful. Restarting."
     rm -fr "$script_dir"
     mv "${script_dir}-new" "$script_dir"
+    if [ "$branch" != "master" ]; then
+      echo "$branch" > "$script_dir/branch"
+    fi
     cd .
     NO_UPDATE=1 exec "$script_path"
   else
