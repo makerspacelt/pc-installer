@@ -102,7 +102,7 @@ EOF
     echo REGDOMAIN=LT > /etc/default/crda
 
     if do_maybe_apt_update; then
-      apt-get -y upgrade
+      apt-get -y dist-upgrade
     fi
 }
 
