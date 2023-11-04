@@ -73,10 +73,17 @@ do_system_base() {
     echo 'Acquire::Languages "none";' > "/etc/apt/apt.conf.d/99no-languages"
 
     cat <<EOF >/etc/apt/sources.list
-deb http://deb.debian.org/debian/ bullseye main contrib non-free
-deb http://deb.debian.org/debian/ bullseye-updates main contrib non-free
-deb http://deb.debian.org/debian/ bullseye-backports main contrib non-free
-deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free
+deb http://deb.debian.org/debian/ bookworm main contrib non-free
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free
+deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free
+EOF
+
+
+  cat <<EOF > /etc/apt/preferences.d/pin-backports
+Package: *
+Pin: release a=bookmworm-backports
+Pin-Priority: 900
 EOF
 
     # fstab (root)
@@ -90,6 +97,10 @@ EOF
     
     # Wireless country
     echo REGDOMAIN=LT > /etc/default/crda
+
+    if do_maybe_apt_update; then
+      apt-get -y upgrade
+    fi
 }
 
 do_enlarge_partition() {
@@ -180,7 +191,7 @@ do_packages_desktop() {
 do_packages_extra() {
   msg "Installing extra packages (this will take a while...)"
   
-  apt_install -t bullseye-backports \
+  apt_install \
     build-essential \
     chromium webext-ublock-origin-chromium \
     evince \
@@ -201,7 +212,7 @@ do_packages_extra() {
 do_packages_makerspace() {
   msg "Installing makerspace packages (this will take a while...)"
 
-  apt_install -t bullseye-backports \
+  apt_install \
     arduino \
     cura \
     docker-compose \
@@ -216,7 +227,7 @@ do_packages_makerspace() {
 do_setup_kicad() {
   msg "Installing kicad (this will take a while...)"
 
-  apt_install -t bullseye-backports \
+  apt_install \
     kicad \
     kicad-libraries \
     kicad-packages3d \
@@ -344,9 +355,6 @@ elif [ ! "$NO_UPDATE" ]; then
   do_self_update
 fi
 
-if do_maybe_apt_update; then
-  apt-get -y upgrade
-fi
 do_system_base
 do_packages_base
 do_packages_desktop
