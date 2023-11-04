@@ -76,10 +76,10 @@ do_system_base() {
     echo 'Acquire::Languages "none";' > "/etc/apt/apt.conf.d/99no-languages"
 
     cat <<EOF >/etc/apt/sources.list
-deb http://deb.debian.org/debian/ bookworm main contrib non-free
-deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free
-deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free
-deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free
+deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
 EOF
 
 
