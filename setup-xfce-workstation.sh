@@ -219,6 +219,9 @@ do_packages_extra() {
     pavucontrol \
     pulseaudio \
     ttf-mscorefonts-installer \
+    va-driver-all vainfo \
+    vdpau-driver-all vdpauinfo \
+    intel-media-va-driver-non-free i965-va-driver-shaders \
     vlc \
     wireshark \
     x11vnc \
