@@ -54,6 +54,8 @@ do_maybe_apt_update() {
     msg "Updating APT package cache (relax, might take a while)"
     apt-get update && touch "/var/lib/apt/periodic/update-success-stamp"
     return 0
+  else
+    dbg "Skipping apt update. Delete this file to force: /var/lib/apt/periodic/update-success-stamp"
   fi
   return 1
 }
