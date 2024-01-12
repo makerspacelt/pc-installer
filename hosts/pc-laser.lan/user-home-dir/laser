@@ -1,6 +1,9 @@
 #!/bin/sh -ex
 
-if pgrep -af 'ssh laser /home/machinekit/bin/laser'; then
+# Allow X11 connections from beaglebone
+DISPLAY=:0 xhost inet:192.168.7.2
+
+if pgrep -af 'ssh laser.*/home/machinekit/bin/laser'; then
 	echo looks like laser ui is already running. bye
 	exit 0
 fi
@@ -13,5 +16,4 @@ done
 
 echo ...starting machinekit ui using X forward
 sleep 5
-exec ssh laser /home/machinekit/bin/laser
-
+exec ssh laser DISPLAY=192.168.7.1:0 /home/machinekit/bin/laser
