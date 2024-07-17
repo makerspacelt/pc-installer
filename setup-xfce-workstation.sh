@@ -255,7 +255,7 @@ do_improve_life() {
   sed -i 's/^#autologin-user=.*/autologin-user=user/' /etc/lightdm/lightdm.conf
 
   # Force systemd+networkmanager to wait for internet
-  mkdir /etc/systemd/system/NetworkManager-wait-online.service.d
+  mkdir -p /etc/systemd/system/NetworkManager-wait-online.service.d
   cat <<EOF > /etc/systemd/system/NetworkManager-wait-online.service.d/override.conf
 [Service]
 ExecStart=/usr/bin/nm-online -q
