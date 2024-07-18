@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! [ -f /etc/enable-webcam-stream ]; then
+    echo "webcam stream disabled (/etc/enable-webcam-stream not present)"
+    exit 0
+fi
+
 video_devices="$(ls -1 /dev/video[0-9] 2>/dev/null)"
 
 if [ ! "$video_devices" ]; then
