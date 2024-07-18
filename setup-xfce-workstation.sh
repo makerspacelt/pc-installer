@@ -124,6 +124,7 @@ do_packages_base() {
   apt_install \
     dosfstools \
     dpkg-dev \
+    ethtool \
     firmware-amd-graphics \
     firmware-ath9k-htc \
     firmware-atheros \
@@ -136,6 +137,7 @@ do_packages_base() {
     firmware-realtek \
     htop \
     iproute2 \
+    iw \
     locales \
     "linux-image-$ARCH" \
     "linux-headers-$ARCH" \
@@ -159,6 +161,7 @@ do_packages_base() {
     qrencode \
     moreutils \
     fping \
+    wireless-regdb \
 
 }
 
