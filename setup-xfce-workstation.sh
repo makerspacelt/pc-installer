@@ -38,7 +38,7 @@ do_self_update() {
     msg "Self update successful from $REPO_URL branch $branch. Restarting."
     rm -fr "$script_dir"
     mv "${script_dir}-new" "$script_dir"
-    cd .
+    cd "$script_dir"
     if [ "$branch" != "master" ]; then
       echo "$branch" > "$script_dir/branch"
     fi
