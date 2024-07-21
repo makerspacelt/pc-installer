@@ -90,6 +90,9 @@ EOF
     
     # Wireless country
     echo REGDOMAIN=LT > /etc/default/crda
+
+    echo kernel.dmesg_restrict=0 > /etc/sysctl.d/99-dmesg-for-all.conf
+
 }
 
 do_enlarge_partition() {
@@ -126,8 +129,21 @@ do_packages_base() {
     openssh-server \
     python-is-python3 \
     usbutils \
+    usbtop \
+    powertop \
     sudo \
     vim \
+    jq \
+    pv \
+    iotop-c \
+    lm-sensors \
+    dos2unix \
+    gnuplot \
+    make \
+    imagemagick \
+    qrencode \
+    moreutils \
+    fping \
 
 }
 
@@ -152,6 +168,8 @@ do_packages_desktop() {
     fonts-noto \
     fonts-terminus \
     fonts-ubuntu \
+    fonts-karla \
+    fonts-font-awesome \
     git \
     gvfs \
     i3-wm \
@@ -198,6 +216,49 @@ do_packages_extra() {
 
 }
 
+do_packages_sdr() {
+  msg "Installing SDR packages"
+
+  apt_install \
+    gqrx-sdr \
+    gnuradio \
+    rtl-sdr \
+    rtl-433 \
+
+}
+do_packages_net_hack() {
+  msg "Installing net hack packages"
+
+  echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections \
+  apt_install \
+    net-tools \
+    ethtool \
+    iptraf-ng \
+    nmap \
+    wireshark \
+    tcpdump \
+
+}
+do_packages_hard_hack() {
+  msg "Installing hard hack packages"
+
+  apt_install \
+    picocom \
+    sigrok \
+    sigrok-firmware-fx2lafw \
+    pulseview \
+    flashrom \
+    i2c-tools \
+    spi-tools \
+    avrdude \
+    stlink-tools \
+    mosquitto-clients \
+    binwalk \
+
+#TODO appImage mqtt-explorer
+
+}
+
 do_packages_makerspace() {
   msg "Installing makerspace packages (this will take a while...)"
 
@@ -220,6 +281,17 @@ do_setup_kicad() {
     kicad \
     kicad-libraries \
     kicad-packages3d \
+
+#TODO
+#  ( \
+#    cd $SYSTEM_USER_HOME/.local/share/kicad/6.0/scripting/plugins/ \
+#    && _clone https://github.com/gregdavill/KiBuzzard.git \
+#    && _clone https://github.com/openscopeproject/InteractiveHtmlBom.git \
+#    && _clone https://github.com/jsreynaud/kicad-action-scripts.git \
+#    && _clone https://github.com/MitjaNemec/ReplicateLayout.git \
+#    && _clone https://github.com/OneKiwiTech/kicad-length-matching.git \
+#    && _clone https://github.com/bennymeg/JLC-Plugin-for-KiCad.git \
+#  )
 
 }
 
@@ -358,6 +430,11 @@ if [ $chroot -eq 0 ]; then
   do_setup_printing
   do_packages_extra
   do_packages_makerspace
+
+  do_packages_sdr
+  do_packages_net_hack
+  do_packages_hard_hack
+
   # TODO
   # do_setup_kicad
 fi
