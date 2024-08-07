@@ -64,7 +64,7 @@ do_system_base() {
     msg "Base system configuration"
 
     # User
-    groups="sudo,dialout,plugdev,video,audio,cdrom,lp,games,kvm"
+    groups="sudo,dialout,plugdev,video,audio,cdrom,lp,games,kvm,bluetooth"
     if grep -q ^user: /etc/passwd; then
       usermod -U -G "$groups" -s /bin/bash user
     else
@@ -114,17 +114,23 @@ do_enlarge_partition() {
   fi
 }
 
-do_packages_base() {
-  msg "Installing basic packages"
+do_packages_base_system() {
+  #
+  # Install packages for minimal base image with network & desktop.
+  # These packages are part of the initial image.
+  #
+  msg "Installing base system packages"
 
-   if do_maybe_apt_update; then
-      apt-get -y upgrade
-    fi
+  if do_maybe_apt_update; then
+    apt-get -y upgrade
+  fi
 
   apt_install \
-    dosfstools \
+    `# debian specific` \
     dpkg-dev \
-    ethtool \
+    `# kernel & firmwares` \
+    "linux-headers-$ARCH" \
+    "linux-image-$ARCH" \
     firmware-amd-graphics \
     firmware-ath9k-htc \
     firmware-atheros \
@@ -135,185 +141,171 @@ do_packages_base() {
     firmware-linux \
     firmware-misc-nonfree \
     firmware-realtek \
-    htop \
-    iproute2 \
-    iw \
-    locales \
-    "linux-image-$ARCH" \
-    "linux-headers-$ARCH" \
-    ntfs-3g \
-    openssh-client \
-    openssh-server \
-    python-is-python3 \
-    usbutils \
-    usbtop \
-    powertop \
-    sudo \
-    vim \
-    jq \
-    pv \
-    iotop-c \
-    lm-sensors \
-    dos2unix \
-    gnuplot \
-    make \
-    imagemagick \
-    qrencode \
-    moreutils \
-    fping \
-    wireless-regdb \
-
-}
-
-do_packages_desktop() {
-  msg "Installing desktop packages (this will take a while...)"
-
-  apt_install \
-    bash-completion \
+    `# cli: media` \
     bluetooth \
     pulseaudio-module-bluetooth \
+    `# cli: network` \
     cifs-utils \
-    cloud-guest-utils \
     curl \
+    ethtool \
+    fping \
+    iproute2 \
+    iw \
+    ncat \
+    nmap \
+    openssh-client \
+    openssh-server \
+    rsync \
+    tcpdump \
+    wireless-regdb \
+    `# cli: other` \
+    bash-completion \
+    cloud-guest-utils \
+    dos2unix \
+    dosfstools \
     eject \
-    ffmpeg \
     file \
+    git \
+    gvfs \
+    htop \
+    imagemagick \
+    iotop-c \
+    jq \
+    lm-sensors \
+    locales \
+    make \
+    mc \
+    moreutils \
+    ntfs-3g \
+    pciutils \
+    powertop \
+    pv \
+    python-is-python3 \
+    screen \
+    systemd-timesyncd \
+    sudo \
+    tmux \
+    usbtop \
+    usbutils \
+    vim \
+    `# gui: fonts` \
     fonts-cantarell \
     fonts-dejavu \
+    fonts-font-awesome \
     fonts-freefont-ttf \
     fonts-hack \
+    fonts-karla \
     fonts-liberation2 \
     fonts-noto \
     fonts-terminus \
     fonts-ubuntu \
-    fonts-karla \
-    fonts-font-awesome \
-    git \
-    gvfs \
-    i3-wm \
-    ncat \
+    `# gui: network` \
     network-manager-gnome \
-    nmap \
-    mc \
-    pciutils \
-    rsync \
-    screen \
+    `# gui: utilities` \
+    vim-gtk3 \
+    `# gui: desktop environment` \
+    i3-wm \
     task-xfce-desktop \
-    tcpdump \
     thunar-archive-plugin \
     thunar-gtkhash \
     thunar-volman \
-    tmux \
-    vim-gtk3 \
     xarchiver \
     xfce4-terminal \
-    xserver-xorg-video-intel \
     xserver-xorg-video-all \
+    xserver-xorg-video-intel \
 
-    usermod -a -G bluetooth user
 }
 
 do_packages_extra() {
+  #
+  # Install packages for full system with all extras.
+  # These packages are installed after first boot.
+  #
   msg "Installing extra packages (this will take a while...)"
+
+  echo "wireshark-common wireshark-common/install-setuid boolean true" | debconf-set-selections
   
   apt_install \
+    `# debian specific` \
+    debconf-utils \
     build-essential \
+    `# cli: other` \
+    docker-compose \
+    docker.io \
+    ffmpeg \
+    gnuplot \
+    iptraf-ng \
+    mosquitto-clients \
+    net-tools \
+    qrencode \
+    v4l-utils \
+    `# cli: hw hack` \
+    arduino \
+    avrdude \
+    binwalk \
+    flashrom \
+    i2c-tools \
+    picocom \
+    sigrok \
+    sigrok-firmware-fx2lafw \
+    spi-tools \
+    stlink-tools \
+    `# gui: other` \
     chromium webext-ublock-origin-chromium \
     evince \
     geeqie \
     gimp \
     inkscape \
+    i965-va-driver-shaders \
+    intel-media-va-driver-non-free \
     libreoffice \
+    obs-studio \
     pavucontrol \
     pulseaudio \
+    pulseview \
     ttf-mscorefonts-installer \
     va-driver-all vainfo \
     vdpau-driver-all vdpauinfo \
-    intel-media-va-driver-non-free i965-va-driver-shaders \
     vlc \
     wireshark \
     x11vnc \
     xfce4-power-manager \
-
-}
-
-do_packages_sdr() {
-  msg "Installing SDR packages"
-
-  apt_install \
+    `# printing` \
+    cups \
+    cups-browsed \
+    cups-pk-helper \
+    hplip \
+    hpijs-ppds \
+    ipp-usb \
+    printer-driver-hpcups \
+    printer-driver-hpijs \
+    printer-driver-postscript-hp \
+    printer-driver-splix \
+    system-config-printer \
+    system-config-printer-udev \
+    `# makerspace: sdr` \
     gqrx-sdr \
     gnuradio \
     rtl-sdr \
     rtl-433 \
-
-}
-do_packages_net_hack() {
-  msg "Installing net hack packages"
-
-  echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections \
-  apt_install \
-    net-tools \
-    ethtool \
-    iptraf-ng \
-    nmap \
-    wireshark \
-    tcpdump \
-
-}
-do_packages_hard_hack() {
-  msg "Installing hard hack packages"
-
-  apt_install \
-    picocom \
-    sigrok \
-    sigrok-firmware-fx2lafw \
-    pulseview \
-    flashrom \
-    i2c-tools \
-    spi-tools \
-    avrdude \
-    stlink-tools \
-    mosquitto-clients \
-    binwalk \
-
-#TODO appImage mqtt-explorer
-
-}
-
-do_packages_makerspace() {
-  msg "Installing makerspace packages (this will take a while...)"
-
-  apt_install \
-    arduino \
+    `# makerspace` \
     cura \
-    docker-compose \
-    docker.io \
-    obs-studio \
-    openarena openarena-oacmp1 \
-    v4l-utils \
- 
+    kicad kicad-libraries kicad-packages3d \
+    
     usermod -a -G docker user
-}
 
-do_setup_kicad() {
-  msg "Installing kicad (this will take a while...)"
-
-  apt_install \
-    kicad \
-    kicad-libraries \
-    kicad-packages3d \
-
-#TODO
-#  ( \
-#    cd $SYSTEM_USER_HOME/.local/share/kicad/6.0/scripting/plugins/ \
-#    && _clone https://github.com/gregdavill/KiBuzzard.git \
-#    && _clone https://github.com/openscopeproject/InteractiveHtmlBom.git \
-#    && _clone https://github.com/jsreynaud/kicad-action-scripts.git \
-#    && _clone https://github.com/MitjaNemec/ReplicateLayout.git \
-#    && _clone https://github.com/OneKiwiTech/kicad-length-matching.git \
-#    && _clone https://github.com/bennymeg/JLC-Plugin-for-KiCad.git \
-#  )
-
+    # TODO appImage mqtt-explorer
+    
+    # TODO kicad
+    #  ( \
+    #    cd $SYSTEM_USER_HOME/.local/share/kicad/6.0/scripting/plugins/ \
+    #    && _clone https://github.com/gregdavill/KiBuzzard.git \
+    #    && _clone https://github.com/openscopeproject/InteractiveHtmlBom.git \
+    #    && _clone https://github.com/jsreynaud/kicad-action-scripts.git \
+    #    && _clone https://github.com/MitjaNemec/ReplicateLayout.git \
+    #    && _clone https://github.com/OneKiwiTech/kicad-length-matching.git \
+    #    && _clone https://github.com/bennymeg/JLC-Plugin-for-KiCad.git \
+    #  ) 
 }
 
 do_improve_life() {
@@ -403,13 +395,6 @@ EOF
 
 do_setup_printing() {
   msg "Setting up printing"
-  
-  apt_install \
-    cups \
-    cups-browsed \
-    system-config-printer system-config-printer-udev cups-pk-helper \
-    printer-driver-hpcups printer-driver-hpijs printer-driver-splix hplip hpijs-ppds printer-driver-postscript-hp \
-    ipp-usb \
 
   sed -i 's/^# CreateIPPPrinterQueues All/CreateIPPPrinterQueues All/g' /etc/cups/cups-browsed.conf
 
@@ -438,22 +423,13 @@ elif [ ! "$NO_UPDATE" ]; then
 fi
 
 do_system_base
-do_packages_base
-do_packages_desktop
+do_packages_base_system
 do_improve_life
 
 if [ $chroot -eq 0 ]; then
   do_enlarge_partition
   # install more packages once we are running from the actual computer
-  do_setup_printing
   do_packages_extra
-  do_packages_makerspace
-
-  do_packages_sdr
-  do_packages_net_hack
-  do_packages_hard_hack
-
-  # TODO
-  # do_setup_kicad
+  do_setup_printing
 fi
 
