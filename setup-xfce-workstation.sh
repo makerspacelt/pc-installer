@@ -128,9 +128,7 @@ do_packages_base_system() {
   apt_install \
     `# debian specific` \
     dpkg-dev \
-    `# kernel & firmwares` \
-    "linux-headers-$ARCH" \
-    "linux-image-$ARCH" \
+    `# boot & kernel & firmwares` \
     firmware-amd-graphics \
     firmware-ath9k-htc \
     firmware-atheros \
@@ -141,6 +139,10 @@ do_packages_base_system() {
     firmware-linux \
     firmware-misc-nonfree \
     firmware-realtek \
+    "linux-headers-$ARCH" \
+    "linux-image-$ARCH" \
+    memtest86+ \
+    syslinux-common \
     `# cli: media` \
     bluetooth \
     pulseaudio-module-bluetooth \

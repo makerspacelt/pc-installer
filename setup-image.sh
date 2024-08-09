@@ -82,11 +82,15 @@ do_image_bootloader() {
 
     cat <<EOF > "$rootfsmnt/extlinux.conf"
 default linux
-timeout 0
+timeout 10
+prompt 1
 
 label linux
 kernel /vmlinuz
 append initrd=/initrd.img root=LABEL=rootfs ro
+
+label memtest
+kernel /boot/memtest86+x64.efi
 EOF
 
     extlinux --install "$rootfsmnt"
