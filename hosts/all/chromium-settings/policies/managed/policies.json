@@ -1,0 +1,20 @@
+{
+  "HomepageIsNewTabPage": false,
+  "HomepageLocation": "file:///etc/chromium/homepage.html",
+  "ManagedBookmarks": [
+    {
+      "toplevel_name": "Kaunas Makerspace"
+    },
+    {
+      "name": "Homepage",
+      "url": "file:///etc/chromium/homepage.html"
+    }
+  ],
+  "MetricsReportingEnabled": false,
+  "PrintHeaderFooter": false,
+  "PrintingPaperSizeDefault": {
+    "name": "iso_a4_210x297mm"
+  },
+  "RestoreOnStartup": 0,
+  "ShowHomeButton": true
+}
