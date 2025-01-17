@@ -64,7 +64,7 @@ do_system_base() {
     msg "Base system configuration"
 
     # User
-    groups="sudo,dialout,plugdev,video,audio,cdrom,lp,games,kvm,bluetooth"
+    groups="sudo,dialout,plugdev,video,audio,cdrom,lp,games,kvm"
     if grep -q ^user: /etc/passwd; then
       usermod -U -G "$groups" -s /bin/bash user
     else
@@ -294,6 +294,7 @@ do_packages_extra() {
     cura \
     kicad kicad-libraries kicad-packages3d \
     
+    usermod -a -G bluetooth user
     usermod -a -G docker user
 
     # TODO appImage mqtt-explorer
