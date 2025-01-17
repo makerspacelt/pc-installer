@@ -103,7 +103,7 @@ do_system_setup() {
   echo "$hostname" > "$rootfsmnt/etc/hostname"
 
   install -o root -g root -m0700 -d "$rootfsmnt/root/setup"
-  install -o root -g root -m0700 "$script_d/$setup_script" "$rootfsmnt/root/setup/"
+  install -o root -g root -m0700 "$script_d/$setup_script" "$script_d/_lib" "$rootfsmnt/root/setup/"
   ARCH="$arch" chroot "$rootfsmnt" "/root/setup/$setup_script"
 }
 
