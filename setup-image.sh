@@ -104,7 +104,6 @@ do_system_setup() {
 
   install -o root -g root -m0700 -d "$rootfsmnt/root/setup"
   install -o root -g root -m0700 "$script_d/$setup_script" "$rootfsmnt/root/setup/"
-  install -m0700 "$script_d/ssh_ro_key" "$rootfsmnt/root/setup/"
   ARCH="$arch" chroot "$rootfsmnt" "/root/setup/$setup_script"
 }
 
