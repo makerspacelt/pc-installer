@@ -389,10 +389,12 @@ EOF
   # Add auto update
   touch /etc/rc.local
   chmod +x /etc/rc.local
-  echo '#!/bin/sh' > /etc/rc.local
+  if ! grep -qF '#!/bin/sh' /etc/rc.local; then
+    echo '#!/bin/sh' > /etc/rc.local
+  fi
 
-  cmd_setup='/root/setup/setup-xfce-workstation.sh | logger --skip-empty --stderr --tag pc-installer-setup'
   sed -i '/setup-xfce-workstation/d; /^exit 0/d' /etc/rc.local
+  cmd_setup='nm-online -q -t 600; /root/setup/setup-xfce-workstation.sh | logger --skip-empty --stderr --tag pc-installer-setup'
   echo "$cmd_setup" >> /etc/rc.local
 
   if [ -x "$script_dir/hosts/all/setup.sh" ]; then
