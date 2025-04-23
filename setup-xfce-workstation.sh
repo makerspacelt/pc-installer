@@ -160,6 +160,7 @@ do_packages_base_system() {
     rsync \
     tcpdump \
     wireless-regdb \
+    wpasupplicant \
     `# cli: other` \
     bash-completion \
     cloud-guest-utils \
@@ -368,7 +369,12 @@ psk=100 decibelu
 [ipv4]
 method=auto
 EOF
-  chmod 600 /etc/NetworkManager/system-connections/makerspace.lt.nmconnection
+  # makerspace.lt_5g
+  sed 's/makerspace.lt/makerspace.lt_5g/g' \
+    < /etc/NetworkManager/system-connections/makerspace.lt.nmconnection \
+    > /etc/NetworkManager/system-connections/makerspace.lt_5g.nmconnection
+
+  chmod 600 /etc/NetworkManager/system-connections/makerspace.lt*.nmconnection
 
   # Add auto update
   touch /etc/rc.local

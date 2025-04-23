@@ -27,7 +27,7 @@ sudo qemu-system-x86_64 -m 1G -net user linux-desktop.img
 Then write the prepared disk image to a real disk:
 
 ```sh
-sudo dd status=progress bs=16K if=linux-desktop.img of=/dev/XXX
+sudo dd status=progress bs=64M if=linux-desktop.img of=/dev/XXX
 ```
 Make sure to use the correct target device name instead of /dev/XXX below.
 This was tested with an SSD disk connected using a USB-SATA adapter.
