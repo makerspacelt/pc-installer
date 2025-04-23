@@ -127,6 +127,10 @@ do_packages_base_system() {
   #
   msg "Installing base system packages"
 
+  # Make sure there are no broken packages
+  apt-get -y -f install
+  dpkg --configure -a
+
   if do_maybe_apt_update; then
     apt-get -y upgrade
   fi
