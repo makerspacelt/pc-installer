@@ -201,6 +201,7 @@ do_packages_base_system() {
     usbtop \
     usbutils \
     vim \
+    zstd \
     `# gui: fonts` \
     fonts-cantarell \
     fonts-dejavu \
