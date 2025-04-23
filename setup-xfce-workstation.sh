@@ -271,6 +271,8 @@ do_packages_extra() {
     inkscape \
     i965-va-driver-shaders \
     intel-media-va-driver-non-free \
+    intel-gpu-tools \
+    mesa-utils \
     libreoffice \
     obs-studio \
     pavucontrol \
