@@ -111,8 +111,8 @@ do_enlarge_partition() {
   (
     eval "$(lsblk -n --include="$(stat --format=%Hd /)" --output NAME,PKNAME -P|grep -v 'PKNAME=""')"
     if [ "$PKNAME" ] && [ "$NAME" ]; then
-      if growpart "$PKNAME" 1; then
-        resize2fs "$NAME"
+      if growpart "/dev/$PKNAME" 1; then
+        resize2fs "/dev/$NAME"
       fi
     else
       err "Cannot grow partition: root device was not identified"
