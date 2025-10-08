@@ -133,9 +133,9 @@ do_packages_base_system() {
 
   # Make sure there are no broken packages
   do_maybe_apt_update
-  apt-get -y -f install
+  apt-get -q -y -f install
   dpkg --configure -a
-  apt-get -y upgrade
+  apt-get -q -y dist-upgrade
 
   apt_install \
     `# debian specific` \
