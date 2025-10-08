@@ -28,7 +28,8 @@ chroot_mounts() {
 }
 
 apt_install() {
-    apt-get -q -y install "$@"
+  dbg "Running apt install $(echo "$@"|cut -b 1-50)..."
+  apt-get -q -y install "$@"
 }
 
 do_self_update() {
@@ -133,8 +134,12 @@ do_packages_base_system() {
 
   # Make sure there are no broken packages
   maybe_apt_update || true
+
+  dbg "Fighting broken packages"
   apt-get -q -y -f install
   dpkg --configure -a
+
+  dbg "Running apt dist upgrade"
   apt-get -q -y dist-upgrade
 
   apt_install \
