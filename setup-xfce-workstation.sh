@@ -52,7 +52,7 @@ do_self_update() {
   fi
 }
 
-do_maybe_apt_update() {
+maybe_apt_update() {
   # Update the package cache if it wasn't updated in the last 24 hours
   if [ ! -f "/var/lib/apt/periodic/update-success-stamp" ] || [ $(($(date +%s) - $(stat -c %Y "/var/lib/apt/periodic/update-success-stamp"))) -gt 86400 ]; then
     msg "Updating APT package cache (relax, might take a while)"
@@ -132,7 +132,7 @@ do_packages_base_system() {
   msg "Installing base system packages"
 
   # Make sure there are no broken packages
-  do_maybe_apt_update
+  maybe_apt_update || true
   apt-get -q -y -f install
   dpkg --configure -a
   apt-get -q -y dist-upgrade
