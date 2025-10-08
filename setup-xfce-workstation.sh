@@ -274,7 +274,7 @@ do_packages_extra() {
     spi-tools \
     stlink-tools \
     `# gui: other` \
-    chromium webext-ublock-origin-chromium \
+    chromium \
     evince \
     geeqie \
     gimp \
