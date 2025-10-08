@@ -25,7 +25,7 @@ chroot_mounts() {
 }
 
 apt_install() {
-    DEBIAN_FRONTEND=noninteractive apt-get -q install "$@"
+    DEBIAN_FRONTEND=noninteractive apt-get -q -y install "$@"
 }
 
 do_self_update() {
