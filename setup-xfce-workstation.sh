@@ -156,7 +156,7 @@ do_packages_base_system() {
     syslinux-common \
     `# cli: media` \
     bluetooth \
-    pulseaudio-module-bluetooth \
+    pipewire-audio libspa-0.2-bluetooth libspa-0.2-libcamera \
     `# cli: network` \
     cifs-utils \
     curl \
@@ -280,7 +280,6 @@ do_packages_extra() {
     libreoffice \
     obs-studio \
     pavucontrol \
-    pulseaudio \
     pulseview \
     ttf-mscorefonts-installer \
     va-driver-all vainfo \
