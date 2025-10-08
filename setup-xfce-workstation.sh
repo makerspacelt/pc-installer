@@ -136,8 +136,8 @@ do_packages_base_system() {
   maybe_apt_update || true
 
   dbg "Fighting broken packages"
-  apt-get -q -y -f install
   dpkg --configure -a
+  apt-get -q -y -f install
 
   dbg "Running apt dist upgrade"
   apt-get -q -y dist-upgrade
