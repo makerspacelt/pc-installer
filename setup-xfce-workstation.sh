@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2129
 
 . "$(dirname "$0")/_lib"
 
@@ -24,7 +25,7 @@ chroot_mounts() {
 }
 
 apt_install() {
-    DEBIAN_FRONTEND=noninteractive apt-get -qq install "$@"
+    DEBIAN_FRONTEND=noninteractive apt-get -q install "$@"
 }
 
 do_self_update() {
@@ -78,16 +79,16 @@ do_system_base() {
     echo 'Acquire::Languages "none";' > "/etc/apt/apt.conf.d/99no-languages"
 
     cat <<EOF >/etc/apt/sources.list
-deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
-deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
-deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
-deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
 EOF
 
 
   cat <<EOF > /etc/apt/preferences.d/pin-backports
 Package: *
-Pin: release a=bookmworm-backports
+Pin: release a=trixie-backports
 Pin-Priority: 900
 EOF
 
@@ -228,6 +229,8 @@ do_packages_base_system() {
     xserver-xorg-video-all \
     xserver-xorg-video-intel \
 
+    apt-get -q autoclean
+    apt-get -q -y autoremove
 }
 
 do_packages_extra() {
@@ -311,7 +314,7 @@ do_packages_extra() {
     usermod -a -G bluetooth user
     usermod -a -G docker user
 
-    # TODO appImage mqtt-explorer
+    # TODO appImage mqtt-explorer orca slicer
     
     # TODO kicad
     #  ( \
@@ -332,7 +335,7 @@ do_improve_life() {
   echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
   echo 'lt_LT.UTF-8 UTF-8' >> /etc/locale.gen
   echo 'LANG=en_US.UTF-8' > /etc/default/locale
-  echo 'LC_TIME=lt_LT.UTF-8' > /etc/default/locale
+  echo 'LC_TIME=lt_LT.UTF-8' >> /etc/default/locale
   echo 'LC_PAPER=lt_LT.UTF-8' >> /etc/default/locale
   echo 'LC_MEASUREMENT=lt_LT.UTF-8' >> /etc/default/locale
   locale-gen
