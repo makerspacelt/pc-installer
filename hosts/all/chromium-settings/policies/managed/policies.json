@@ -1,4 +1,37 @@
 {
+  "3rdparty": {
+    "extensions": {
+      "ddkjiahejlhfcafbddmgiahcphecmpfh": {
+        "disableFirstRunPage": true,
+        "rulesets": [
+          "-*",
+          "+default",
+          "+badware",
+          "+urlhaus-full",
+          "+openphish-domains",
+          "+annoyances-cookies",
+          "+annoyances-overlays",
+          "+annoyances-social",
+          "+ltu-0"
+        ]
+      }
+    }
+  },
+  "ExtensionSettings": {
+    "ddkjiahejlhfcafbddmgiahcphecmpfh": {
+      "allowed_permissions": [
+        "activeTab",
+        "declarativeNetRequest",
+        "scripting",
+        "storage"
+      ],
+      "installation_mode": "force_installed",
+      "runtime_allowed_hosts": [
+        "*://*"
+      ],
+      "update_url": "https://clients2.google.com/service/update2/crx"
+    }
+  },
   "HomepageIsNewTabPage": false,
   "HomepageLocation": "file:///etc/chromium/homepage.html",
   "ManagedBookmarks": [

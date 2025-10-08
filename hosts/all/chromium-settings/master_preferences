@@ -1,72 +1,79 @@
 {
-  "distribution": {
-     "import_bookmarks": false,
-     "import_bookmarks_from_file": "/etc/chromium/bookmarks.html",
-     "make_chrome_default": false,
-     "make_chrome_default_for_user": false,
-     "verbose_logging": true,
-     "skip_first_run_ui": true,
-     "create_all_shortcuts": true,
-     "suppress_first_run_default_browser_prompt": true
-  },
-  "browser": {
-     "show_home_button": true,
-     "has_seen_welcome_page" : true,
-     "check_default_browser" : false,
-     "theme": {
-         "color_scheme": 2
-     }
-  },
-  "search_provider_overrides": [{
-     "enabled": true,
-     "encoding": "UTF-8",
-     "favicon_url": "https://duckduckgo.com/favicon.ico",
-     "new_tab_url": "https://duckduckgo.com/chrome_newtab",
-     "id": 2,
-     "keyword": "duckduckgo.com",
-     "name": "DuckDuckGo",
-     "search_url": "https://duckduckgo.com/?q={searchTerms}",
-     "suggest_url": "https://duckduckgo.com/ac/?q={searchTerms}&type=list"
-  }],
-  "search_provider_overrides_version": 1,
-  "profile": {
-     "default_content_setting_values": {
-        "payment_handler": 2
-     }
-  },
-  "bookmark_bar": {
-     "show_on_all_tabs": true
-  },
-  "net": {
-     "network_prediction_options": 2
-  },
-  "search": {
-     "suggest_enabled": false
-  },
-  "signin": {
-     "allowed": false,
-     "allowed_on_next_startup": false
+  "alternate_error_pages": {
+    "enabled": false
   },
   "autofill": {
-     "profile_enabled": false,
-     "credit_card_enabled": false
+    "credit_card_enabled": false,
+    "profile_enabled": false
   },
-  "payments": {
-     "can_make_payment_enabled": false
+  "bookmark_bar": {
+    "show_on_all_tabs": true
   },
-  "safebrowsing": {
-     "enabled": false
+  "browser": {
+    "check_default_browser": false,
+    "has_seen_welcome_page": true,
+    "show_home_button": true,
+    "theme": {
+      "color_scheme": 2
+    }
+  },
+  "credentials_enable_autosignin": false,
+  "credentials_enable_service": false,
+  "default_apps": "noinstall",
+  "distribution": {
+    "create_all_shortcuts": true,
+    "import_bookmarks": false,
+    "import_bookmarks_from_file": "/etc/chromium/bookmarks.html",
+    "make_chrome_default": false,
+    "make_chrome_default_for_user": false,
+    "skip_first_run_ui": true,
+    "suppress_first_run_default_browser_prompt": true,
+    "verbose_logging": true
   },
   "dns_prefetching": {
-     "enabled": false
+    "enabled": false
   },
-  "alternate_error_pages": {
-     "enabled": false
-  },
-  "credentials_enable_service": false,
-  "credentials_enable_autosignin": false,
-  "default_apps": "noinstall",
   "hide_web_store_icon": true,
+  "homepage": "file:///etc/chromium/homepage.html",
   "homepage_is_newtabpage": false,
-  "homepage": "file:///etc/chromium/homepage.html"
+  "net": {
+    "network_prediction_options": 2
+  },
+  "payments": {
+    "can_make_payment_enabled": false
+  },
+  "profile": {
+    "default_content_setting_values": {
+      "payment_handler": 2
+    }
+  },
+  "safebrowsing": {
+    "enabled": false
+  },
+  "search": {
+    "suggest_enabled": false
+  },
+  "search_provider_overrides": [
+    {
+      "enabled": true,
+      "encoding": "UTF-8",
+      "favicon_url": "https://duckduckgo.com/favicon.ico",
+      "id": 2,
+      "keyword": "duckduckgo.com",
+      "name": "DuckDuckGo",
+      "new_tab_url": "https://duckduckgo.com/chrome_newtab",
+      "search_url": "https://duckduckgo.com/?q={searchTerms}",
+      "suggest_url": "https://duckduckgo.com/ac/?q={searchTerms}&type=list"
+    }
+  ],
+  "search_provider_overrides_version": 1,
+  "signin": {
+    "allowed": false,
+    "allowed_on_next_startup": false
+  },
+  "translate_blocked_languages": [
+    "en",
+    "lt",
+    "de"
+  ]
 }
