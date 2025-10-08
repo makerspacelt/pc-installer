@@ -12,6 +12,9 @@ set -eu
 # Repo URL for automatic self updates
 REPO_URL="https://github.com/makerspacelt/pc-installer.git"
 
+# Do not prompt for dpkg options
+export DEBIAN_FRONTEND=noninteractive 
+
 chroot_cleanup() {
     msg "Chroot cleanup"
 
@@ -25,7 +28,7 @@ chroot_mounts() {
 }
 
 apt_install() {
-    DEBIAN_FRONTEND=noninteractive apt-get -q -y install "$@"
+    apt-get -q -y install "$@"
 }
 
 do_self_update() {
@@ -129,12 +132,10 @@ do_packages_base_system() {
   msg "Installing base system packages"
 
   # Make sure there are no broken packages
+  do_maybe_apt_update
   apt-get -y -f install
   dpkg --configure -a
-
-  if do_maybe_apt_update; then
-    apt-get -y upgrade
-  fi
+  apt-get -y upgrade
 
   apt_install \
     `# debian specific` \
