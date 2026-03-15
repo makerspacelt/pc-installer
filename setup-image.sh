@@ -20,6 +20,10 @@ usage() {
 }
 
 cleanup() {
+    msg "make rootfs archive"
+    rm -fr "$rootfsmnt/var/cache"
+    cd $rootfsmnt && tar czf ../generic.tgz .
+
     msg "Cleanup & exit"
 
     trap - EXIT
