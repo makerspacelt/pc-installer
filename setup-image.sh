@@ -68,6 +68,7 @@ do_image_rootfs() {
         --customize-hook='sync-out /var/cache/apt/archives ./cache' \
         \
         --variant=important \
+        --include=grub-pc \
         --aptopt='Acquire::Languages "none"' \
         --aptopt='Apt::Install-Recommends "false"' \
         --components=main,contrib,non-free \
