@@ -253,6 +253,7 @@ do_packages_extra() {
     debconf-utils \
     build-essential \
     `# cli: other` \
+    docker-cli \
     docker-compose \
     docker.io \
     ffmpeg \
