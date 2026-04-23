@@ -203,6 +203,7 @@ do_packages_base_system() {
     python-is-python3 \
     screen \
     systemd-timesyncd \
+    smartmontools \
     sudo \
     tmux \
     usbtop \
